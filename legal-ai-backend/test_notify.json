@@ -1,0 +1,8 @@
+{
+  "recipient_name": "Test",
+  "recipient_email": "test@test.com",
+  "recipient_phone": "+917671045180",
+  "notification_type": "sms",
+  "subject": "Test",
+  "message": "Hello from Legal AI System!"
+}

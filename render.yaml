@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: legal-ai-backend
+    runtime: python
+    rootDir: legal-ai-backend
+    buildCommand: "pip install -r requirements.txt || pip install fastapi uvicorn sqlalchemy pydantic python-dotenv groq passlib python-jose scikit-learn python-multipart"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+    disk:
+      name: sqlite-data
+      mountPath: /data
+      sizeGB: 1

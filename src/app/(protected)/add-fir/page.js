@@ -39,6 +39,16 @@ const labelStyle = {
 
 export default function AddFIR() {
   const [role, setRole] = useState("User");
+  const [firNumber, setFirNumber] = useState("");
+  const [policeStation, setPoliceStation] = useState("");
+  const [complaintType, setComplaintType] = useState("");
+  const [dateRegistered, setDateRegistered] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [status, setStatus] = useState("Pending");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setRole(localStorage.getItem("user_role") || "User");
@@ -59,20 +69,6 @@ export default function AddFIR() {
       </div>
     );
   }
-
-  const [firNumber, setFirNumber] = useState("");
-  const [policeStation, setPoliceStation] = useState("");
-  const [complaintType, setComplaintType] = useState("");
-
-  const [dateRegistered, setDateRegistered] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-
-  const [status, setStatus] = useState("Pending");
-
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
 
   const handleSubmit = async () => {
     if (

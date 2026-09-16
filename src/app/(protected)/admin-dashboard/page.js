@@ -154,11 +154,42 @@ export default function SuperAdminDashboard() {
     (l.details || "").toLowerCase().includes(auditSearch.toLowerCase())
   );
 
+  const [notifyForm, setNotifyForm] = useState({
+    recipient_name: "All System Users",
+    recipient_email: "all@judiciary.gov.in",
+    recipient_phone: "",
+    notification_type: "System Alert",
+    subject: "Important Judiciary Update",
+    message: "",
+  });
+
+  async function sendBroadcastNotification(e) {
+    e.preventDefault();
+    if (!notifyForm.message) return showError("Please enter a notification message.");
+    try {
+      await axios.post(`${BACKEND}/notify`, notifyForm, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+      showSuccess("Notification broadcasted successfully!");
+      setNotifyForm({
+        recipient_name: "All System Users",
+        recipient_email: "all@judiciary.gov.in",
+        recipient_phone: "",
+        notification_type: "System Alert",
+        subject: "Important Judiciary Update",
+        message: "",
+      });
+    } catch (err) {
+      showError("Failed to broadcast notification.");
+    }
+  }
+
   const tabs = [
     { id: "analytics", label: "📊 Analytics" },
     { id: "users", label: "👥 User Management" },
     { id: "audit", label: "📋 Audit Logs" },
     { id: "security", label: "🛡️ Security Monitor" },
+    { id: "notify", label: "🔔 Broadcast Notifications" },
   ];
 
   return (
@@ -450,6 +481,86 @@ export default function SuperAdminDashboard() {
                 </div>
               </>
             )}
+          </div>
+        {/* ===== TAB: NOTIFICATIONS ===== */}
+        {activeTab === "notify" && (
+          <div style={{ maxWidth: "700px" }}>
+            <h2 style={{ color: "#C084FC", marginTop: 0 }}>🔔 Broadcast System Notifications</h2>
+            <p style={{ color: "#94A3B8", marginBottom: "20px" }}>
+              Send real-time system alerts, SMS broadcasts, or judiciary announcements across all 5 user roles.
+            </p>
+            <form onSubmit={sendBroadcastNotification}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div>
+                  <label style={{ color: "#CBD5E1", fontSize: "13px", fontWeight: "600", display: "block", marginBottom: "6px" }}>Recipient / Target Group *</label>
+                  <input
+                    type="text"
+                    value={notifyForm.recipient_name}
+                    onChange={(e) => setNotifyForm({ ...notifyForm, recipient_name: e.target.value })}
+                    style={{ width: "100%", padding: "12px", background: "#0F172A", color: "#F8FAFC", border: "1px solid #334155", borderRadius: "10px" }}
+                  />
+                </div>
+                <div>
+                  <label style={{ color: "#CBD5E1", fontSize: "13px", fontWeight: "600", display: "block", marginBottom: "6px" }}>Recipient Email</label>
+                  <input
+                    type="email"
+                    value={notifyForm.recipient_email}
+                    onChange={(e) => setNotifyForm({ ...notifyForm, recipient_email: e.target.value })}
+                    style={{ width: "100%", padding: "12px", background: "#0F172A", color: "#F8FAFC", border: "1px solid #334155", borderRadius: "10px" }}
+                  />
+                </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div>
+                  <label style={{ color: "#CBD5E1", fontSize: "13px", fontWeight: "600", display: "block", marginBottom: "6px" }}>Notification Type</label>
+                  <select
+                    value={notifyForm.notification_type}
+                    onChange={(e) => setNotifyForm({ ...notifyForm, notification_type: e.target.value })}
+                    style={{ width: "100%", padding: "12px", background: "#0F172A", color: "#C084FC", border: "1px solid #334155", borderRadius: "10px" }}
+                  >
+                    <option value="System Alert">System Alert</option>
+                    <option value="SMS">SMS (Twilio Integration)</option>
+                    <option value="Email">Email Announcement</option>
+                    <option value="Hearing Reminder">Hearing Reminder</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ color: "#CBD5E1", fontSize: "13px", fontWeight: "600", display: "block", marginBottom: "6px" }}>Recipient Phone (for SMS)</label>
+                  <input
+                    type="text"
+                    placeholder="+91 XXXXX XXXXX"
+                    value={notifyForm.recipient_phone}
+                    onChange={(e) => setNotifyForm({ ...notifyForm, recipient_phone: e.target.value })}
+                    style={{ width: "100%", padding: "12px", background: "#0F172A", color: "#F8FAFC", border: "1px solid #334155", borderRadius: "10px" }}
+                  />
+                </div>
+              </div>
+              <div style={{ marginBottom: "16px" }}>
+                <label style={{ color: "#CBD5E1", fontSize: "13px", fontWeight: "600", display: "block", marginBottom: "6px" }}>Subject *</label>
+                <input
+                  type="text"
+                  value={notifyForm.subject}
+                  onChange={(e) => setNotifyForm({ ...notifyForm, subject: e.target.value })}
+                  style={{ width: "100%", padding: "12px", background: "#0F172A", color: "#F8FAFC", border: "1px solid #334155", borderRadius: "10px" }}
+                />
+              </div>
+              <div style={{ marginBottom: "20px" }}>
+                <label style={{ color: "#CBD5E1", fontSize: "13px", fontWeight: "600", display: "block", marginBottom: "6px" }}>Message Content *</label>
+                <textarea
+                  rows="4"
+                  placeholder="Enter system announcement or notification body..."
+                  value={notifyForm.message}
+                  onChange={(e) => setNotifyForm({ ...notifyForm, message: e.target.value })}
+                  style={{ width: "100%", padding: "12px", background: "#0F172A", color: "#F8FAFC", border: "1px solid #334155", borderRadius: "10px" }}
+                />
+              </div>
+              <button
+                type="submit"
+                style={{ width: "100%", padding: "14px", background: "#7C3AED", color: "white", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "700", cursor: "pointer" }}
+              >
+                📣 BROADCAST NOTIFICATION
+              </button>
+            </form>
           </div>
         )}
 

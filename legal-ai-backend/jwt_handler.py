@@ -6,7 +6,7 @@ SECRET_KEY = "f569a7d42d3ffd86ddc44fa726913fb34e025a2c7c1596905ca0b40d3a517e1c"
 
 ALGORITHM = "HS256"
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days expiration
 
 
 def create_access_token(data: dict):

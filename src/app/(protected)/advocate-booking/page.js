@@ -13,7 +13,6 @@ export default function AdvocateBooking() {
   const [timeSlot, setTimeSlot] = useState("");
 
   const [booking, setBooking] = useState(null);
-  const [showPayment, setShowPayment] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -128,8 +127,7 @@ export default function AdvocateBooking() {
         timeSlot,
         status: "Pending Advocate Approval",
       });
-
-      setShowPayment(true);
+      setMessage("✅ Booking submitted! Awaiting advocate approval. You will receive an SMS notification.");
     } catch (error) {
       if (error?.response?.status === 401) {
         localStorage.clear();
@@ -141,35 +139,7 @@ export default function AdvocateBooking() {
     setLoading(false);
   };
 
-  const makePayment = async () => {
-    try {
-      const res = await axios.post(
-        `${BACKEND}/payment/create`,
-        {
-          user_name: booking.name,
-          user_email: booking.name + "@gmail.com",
-          amount: 500,
-          purpose: "Advocate Consultation",
-          advocate_name: booking.advocate,
-        },
-        { headers: { Authorization: `Bearer ${getToken()}` } }
-      );
 
-      const paymentData = res.data.payment;
-
-      await axios.post(
-        `${BACKEND}/payment/verify`,
-        { payment_id: paymentData.payment_id, status: "success" },
-        { headers: { Authorization: `Bearer ${getToken()}` } }
-      );
-
-      setBooking({ ...booking, status: "Confirmed & Paid" });
-      setShowPayment(false);
-      setMessage("✅ Consultation fee paid! Twilio SMS confirmation sent to your phone.");
-    } catch (err) {
-      alert("Payment Failed");
-    }
-  };
 
   // ==========================================
   // ADVOCATE DASHBOARD VIEW
@@ -374,20 +344,7 @@ export default function AdvocateBooking() {
           </div>
         </div>
 
-        {/* PAYMENT MODAL CARD */}
-        {showPayment && booking && (
-          <div className="glass-card" style={{ padding: "30px", marginBottom: "35px", border: "1px solid #D4AF37" }}>
-            <h2 style={{ color: "#D4AF37", marginTop: 0 }}>💳 Complete Consultation Fee</h2>
-            <p style={{ color: "#CBD5E1" }}>Advocate: <strong>{booking.advocate}</strong></p>
-            <p style={{ color: "#CBD5E1" }}>Consultation Fee: <strong>₹500</strong></p>
-            <button
-              onClick={makePayment}
-              style={{ background: "#10B981", color: "white", border: "none", padding: "14px 28px", borderRadius: "12px", cursor: "pointer", fontWeight: "700", fontSize: "16px" }}
-            >
-              PAY ₹500 VIA SECURE GATEWAY
-            </button>
-          </div>
-        )}
+
 
         {message && (
           <div style={{ padding: "16px", background: "rgba(16, 185, 129, 0.15)", color: "#6EE7B7", border: "1px solid #10B981", borderRadius: "12px", marginBottom: "30px" }}>

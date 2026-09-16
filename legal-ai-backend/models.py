@@ -164,21 +164,8 @@ class Notification(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
-# ==============================
-# PAYMENTS
-# ==============================
-class Payment(Base):
-    __tablename__ = "payments"
 
-    id = Column(Integer, primary_key=True, index=True)
-    payment_id = Column(String(100), unique=True)
-    user_name = Column(String(100))
-    user_email = Column(String(100))
-    amount = Column(String(50))
-    purpose = Column(String(200))
-    advocate_name = Column(String(100))
-    status = Column(String(30), default="Pending")
-    created_at = Column(DateTime, default=datetime.utcnow)
+
 
 
 # ==============================

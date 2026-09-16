@@ -4,6 +4,23 @@ import { useState, useEffect } from "react";
 
 export default function AddCase() {
   const [role, setRole] = useState("User");
+  const [form, setForm] = useState({
+    case_number: "",
+    case_title: "",
+    petitioner: "",
+    respondent: "",
+    court_name: "",
+    judge_name: "",
+    advocate_assigned: "",
+    case_type: "Civil",
+    filing_date: "",
+    next_hearing_date: "",
+    priority: "Medium",
+    status: "Pending",
+  });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setRole(localStorage.getItem("user_role") || "User");
@@ -24,27 +41,6 @@ export default function AddCase() {
       </div>
     );
   }
-
-
-  const [form, setForm] = useState({
-    case_number: "",
-    case_title: "",
-    petitioner: "",
-    respondent: "",
-    court_name: "",
-    judge_name: "",
-    advocate_assigned: "",
-    case_type: "Civil",
-    filing_date: "",
-    next_hearing_date: "",
-    priority: "Medium",
-    status: "Pending",
-  });
-
-
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setForm({

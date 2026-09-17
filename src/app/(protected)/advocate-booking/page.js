@@ -26,7 +26,7 @@ export default function AdvocateBooking() {
     setRole(userRole);
     setName(localStorage.getItem("user_name") || "");
 
-    if (userRole === "Advocate" || userRole === "Super Admin") {
+    if (userRole === "Lawyer" || userRole === "Admin") {
       loadAdvocateDashboard();
     }
   }, []);
@@ -144,7 +144,7 @@ export default function AdvocateBooking() {
   // ==========================================
   // ADVOCATE DASHBOARD VIEW
   // ==========================================
-  if (role === "Advocate" || role === "Super Admin") {
+  if (role === "Lawyer" || role === "Admin") {
     return (
       <div style={{ minHeight: "100vh", background: "#0B0F19", padding: "40px", fontFamily: "-apple-system, sans-serif" }}>
         <div style={{ maxWidth: "1300px", margin: "0 auto" }}>
@@ -153,10 +153,10 @@ export default function AdvocateBooking() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "35px" }}>
             <div>
               <h1 style={{ color: "#FBBF24", fontSize: "36px", fontWeight: "800", margin: 0 }}>
-                ⚖️ Legal Advocate Management Portal
+                ⚖️ Legal Lawyer Management Portal
               </h1>
               <p style={{ color: "#CBD5E1", fontSize: "16px", marginTop: "6px" }}>
-                Welcome Advocate {name} • Accept/Reject Consultation Requests & Manage Assigned Client Cases
+                Welcome Lawyer {name} • Accept/Reject Consultation Requests & Manage Assigned Client Cases
               </p>
             </div>
             <button

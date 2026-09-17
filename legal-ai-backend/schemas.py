@@ -7,7 +7,7 @@ class UserRegister(BaseModel):
     email: str
     password: str
     phone: str
-    role: Optional[str] = "User"  # User, Police, Advocate, Court Management, Super Admin
+    role: Optional[str] = "User"  # User, Police, Lawyer, Judge, Admin
     police_station: Optional[str] = None
     bar_council_id: Optional[str] = None
     court_id: Optional[str] = None

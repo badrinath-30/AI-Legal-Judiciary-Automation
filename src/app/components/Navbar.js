@@ -34,18 +34,18 @@ export default function Navbar() {
   const initial = name ? name.charAt(0).toUpperCase() : "U";
 
   // Check permissions
-  const canAddCase = role === "Police" || role === "Court Management" || role === "Super Admin";
-  const canAddFIR = role === "Police" || role === "Super Admin";
+  const canAddCase = role === "Police" || role === "Judge" || role === "Admin";
+  const canAddFIR = role === "Police" || role === "Admin";
 
   const getRoleBadgeStyle = () => {
     switch (role) {
       case "Police":
         return { background: "rgba(239, 68, 68, 0.2)", color: "#F87171", border: "1px solid #EF4444" };
-      case "Advocate":
+      case "Lawyer":
         return { background: "rgba(245, 158, 11, 0.2)", color: "#FBBF24", border: "1px solid #F59E0B" };
-      case "Court Management":
+      case "Judge":
         return { background: "rgba(16, 185, 129, 0.2)", color: "#34D399", border: "1px solid #10B981" };
-      case "Super Admin":
+      case "Admin":
         return { background: "rgba(168, 85, 247, 0.2)", color: "#C084FC", border: "1px solid #A855F7" };
       default:
         return { background: "rgba(59, 130, 246, 0.2)", color: "#60A5FA", border: "1px solid #3B82F6" };
@@ -140,22 +140,22 @@ export default function Navbar() {
           📊 Dashboard
         </Link>
 
-        {/* Super Admin Dashboard if Admin */}
-        {role === "Super Admin" && (
+        {/* Admin Dashboard if Admin */}
+        {role === "Admin" && (
           <Link href="/admin-dashboard" style={{ ...linkStyle, color: "#C084FC" }}>
             🛡️ Admin Control
           </Link>
         )}
 
         {/* Police Command Center */}
-        {(role === "Police" || role === "Super Admin") && (
+        {(role === "Police" || role === "Admin") && (
           <Link href="/police-dashboard" style={{ ...linkStyle, color: "#60A5FA" }}>
             🚔 Police Portal
           </Link>
         )}
 
-        {/* Court Management Portal */}
-        {(role === "Court Management" || role === "Super Admin") && (
+        {/* Court Portal */}
+        {(role === "Judge" || role === "Admin") && (
           <Link href="/court-dashboard" style={{ ...linkStyle, color: "#A78BFA" }}>
             🏛️ Court Portal
           </Link>

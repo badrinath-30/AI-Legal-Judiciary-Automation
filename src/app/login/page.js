@@ -9,6 +9,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [focused, setFocused] = useState(false);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -61,18 +62,17 @@ export default function Login() {
         
 
         setSuccess(
-          `Welcome ${data.name}! Login Successful.`
+          `Welcome ${data.name}! Redirecting to ${data.role} dashboard...`
         );
 
         setTimeout(() => {
-          if (data.role === "Admin") {
-            window.location.href =
-              "/admin-dashboard";
-          } else {
-            window.location.href =
-              "/dashboard";
-          }
-        }, 1500);
+          window.location.href =
+            data.role === "Admin" ? "/admin-dashboard" :
+            data.role === "Police" ? "/police-dashboard" :
+            data.role === "Judge" ? "/court-dashboard" :
+            data.role === "Lawyer" ? "/advocate-booking" :
+            "/dashboard";
+        }, 1200);
       } else {
         setError(
           data.detail ||
@@ -436,7 +436,7 @@ export default function Login() {
       "0 10px 25px rgba(79,70,229,0.40)",
   }}
 >
-  {loading ? "Logging In..." : "LOGIN"}
+  {loading ? "⏳ Logging In..." : "→ SIGN IN"}
 </button>
 
 {/* REGISTER LINK */}

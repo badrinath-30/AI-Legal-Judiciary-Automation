@@ -42,7 +42,7 @@ export default function CourtDashboard() {
 
   useEffect(() => {
     const role = localStorage.getItem("user_role");
-    if (role !== "Court Management" && role !== "Super Admin") {
+    if (role !== "Judge" && role !== "Admin") {
       window.location.href = "/dashboard";
       return;
     }

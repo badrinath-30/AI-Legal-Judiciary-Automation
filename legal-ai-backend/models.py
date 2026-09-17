@@ -32,7 +32,7 @@ class User(Base):
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String(255), nullable=False)
     phone = Column(String(20))
-    role = Column(String(50), default="User")  # Roles: User, Police, Advocate, Court Management, Super Admin
+    role = Column(String(50), default="User")  # Roles: User, Police, Lawyer, Judge, Admin
     police_station = Column(String(100), nullable=True)
     bar_council_id = Column(String(100), nullable=True)
     court_id = Column(String(100), nullable=True)

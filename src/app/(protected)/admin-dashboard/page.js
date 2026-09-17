@@ -6,7 +6,7 @@ import axios from "axios";
 const BACKEND = "http://127.0.0.1:8000";
 const getToken = () => localStorage.getItem("access_token");
 
-const VALID_ROLES = ["User", "Police", "Advocate", "Court Management", "Super Admin"];
+const VALID_ROLES = ["User", "Police", "Lawyer", "Judge", "Admin"];
 
 export default function SuperAdminDashboard() {
   const [activeTab, setActiveTab] = useState("analytics");
@@ -30,7 +30,7 @@ export default function SuperAdminDashboard() {
 
   useEffect(() => {
     const role = localStorage.getItem("user_role");
-    if (role !== "Super Admin") {
+    if (role !== "Admin") {
       window.location.href = "/dashboard";
       return;
     }
@@ -130,10 +130,10 @@ export default function SuperAdminDashboard() {
 
   const roleColor = (r) => {
     switch (r) {
-      case "Super Admin": return { bg: "rgba(168, 85, 247, 0.2)", color: "#C084FC" };
+      case "Admin": return { bg: "rgba(168, 85, 247, 0.2)", color: "#C084FC" };
       case "Police": return { bg: "rgba(239, 68, 68, 0.2)", color: "#F87171" };
-      case "Advocate": return { bg: "rgba(245, 158, 11, 0.2)", color: "#FBBF24" };
-      case "Court Management": return { bg: "rgba(16, 185, 129, 0.2)", color: "#34D399" };
+      case "Lawyer": return { bg: "rgba(245, 158, 11, 0.2)", color: "#FBBF24" };
+      case "Judge": return { bg: "rgba(16, 185, 129, 0.2)", color: "#34D399" };
       default: return { bg: "rgba(96, 165, 250, 0.2)", color: "#60A5FA" };
     }
   };
@@ -199,7 +199,7 @@ export default function SuperAdminDashboard() {
       <div style={{ background: "linear-gradient(135deg, #1a0a3e 0%, #0B0F19 100%)", borderBottom: "1px solid rgba(168, 85, 247, 0.3)", padding: "22px 40px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <h1 style={{ margin: 0, color: "#C084FC", fontSize: "28px", fontWeight: "800", letterSpacing: "-0.5px" }}>
-            🛡️ Super Admin Control Panel
+            🛡️ Admin Control Panel
           </h1>
           <p style={{ margin: "5px 0 0", color: "#94A3B8", fontSize: "14px" }}>
             {adminName} • Full System Access • All Modules

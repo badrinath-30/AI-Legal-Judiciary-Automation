@@ -60,7 +60,7 @@ export default function PoliceDashboard() {
 
   useEffect(() => {
     const role = localStorage.getItem("user_role");
-    if (role !== "Police" && role !== "Super Admin") {
+    if (role !== "Police" && role !== "Admin") {
       window.location.href = "/dashboard";
       return;
     }
@@ -432,7 +432,7 @@ export default function PoliceDashboard() {
                 { label: "Respondent (Accused)", key: "respondent", placeholder: "Full Name" },
                 { label: "Court Name", key: "court_name", placeholder: "District Court, Hyderabad" },
                 { label: "Judge Name", key: "judge_name", placeholder: "Hon. Justice ..." },
-                { label: "Advocate Assigned", key: "advocate_assigned", placeholder: "Advocate Name" },
+                { label: "Lawyer Assigned", key: "advocate_assigned", placeholder: "Lawyer Name" },
                 { label: "Filing Date", key: "filing_date", type: "date" },
                 { label: "Next Hearing Date", key: "next_hearing_date", type: "date" },
               ].map(f => (

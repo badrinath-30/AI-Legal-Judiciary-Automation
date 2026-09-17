@@ -164,13 +164,13 @@ export default function Register() {
               🚔 Police: Register & Manage FIRs and Investigations
             </p>
             <p style={{ color: "#FBBF24", fontSize: "16px", marginBottom: "14px", fontWeight: "600" }}>
-              ⚖️ Advocates: Manage Consultations & Assigned Hearings
+              ⚖️ Lawyer: Accept Bookings & Manage Client Cases
             </p>
             <p style={{ color: "#34D399", fontSize: "16px", marginBottom: "14px", fontWeight: "600" }}>
-              🏛️ Court Management: Schedule Proceedings & Upload Judgements
+              🏛️ Judge: Schedule Proceedings & Upload Judgements
             </p>
             <p style={{ color: "#C084FC", fontSize: "16px", fontWeight: "600" }}>
-              🛡️ Super Admin: System Monitoring & Audit Compliance
+              🛡️ Admin: System Monitoring & Audit Compliance
             </p>
           </div>
         </div>
@@ -230,9 +230,9 @@ export default function Register() {
             >
               <option value="User">👤 USER (Citizen / Petitioner / Respondent)</option>
               <option value="Police">🚔 POLICE (Station Officer / Investigator)</option>
-              <option value="Advocate">⚖️ ADVOCATE (Legal Representative)</option>
-              <option value="Court Management">🏛️ COURT MANAGEMENT (Judiciary Staff)</option>
-              <option value="Super Admin">🛡️ SUPER ADMIN (System Administrator)</option>
+              <option value="Lawyer">⚖️ LAWYER (Legal Representative)</option>
+              <option value="Judge">🏛️ JUDGE (Judiciary Staff)</option>
+              <option value="Admin">🛡️ ADMIN (System Administrator)</option>
             </select>
           </div>
 
@@ -327,7 +327,7 @@ export default function Register() {
             </div>
           )}
 
-          {role === "Advocate" && (
+          {role === "Lawyer" && (
             <div style={{ marginBottom: "15px" }}>
               <label style={{ color: "#FBBF24", fontWeight: "600", fontSize: "14px" }}>Bar Council Enrolment Number *</label>
               <input
@@ -350,7 +350,7 @@ export default function Register() {
             </div>
           )}
 
-          {role === "Court Management" && (
+          {role === "Judge" && (
             <div style={{ marginBottom: "15px" }}>
               <label style={{ color: "#34D399", fontWeight: "600", fontSize: "14px" }}>Court Designation / ID *</label>
               <input
